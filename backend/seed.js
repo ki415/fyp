@@ -1,3 +1,5 @@
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '8.8.4.4']);
 const mongoose = require('mongoose');
 const dotenv = require('dotenv');
 const bcrypt = require('bcryptjs');
@@ -16,7 +18,7 @@ const importData = async () => {
 
     const salt = await bcrypt.genSalt(10);
     const hashedPassword = await bcrypt.hash('password123', salt);
-    
+
     const adminUser = await User.create({
       name: 'Admin User',
       email: 'admin@shopnest.com',
@@ -68,7 +70,7 @@ const importData = async () => {
     ];
 
     await Product.insertMany(products);
-    
+
     console.log('✅ Data Imported Successfully!');
     process.exit();
   } catch (error) {

@@ -1,3 +1,5 @@
+const dns = require('dns');
+dns.setServers(['8.8.8.8', '8.8.4.4']); // Forces Node.js to use Google DNS
 const express = require('express');
 const dotenv = require('dotenv');
 const cors = require('cors');
@@ -26,7 +28,7 @@ app.use('/api/analytics', require('./routes/analyticsRoutes'));
 // Serve frontend in production
 if (process.env.NODE_ENV === 'production') {
   app.use(express.static(path.join(__dirname, '../frontend/build')));
-  
+
   app.use((req, res) => {
     res.sendFile(path.resolve(__dirname, '../frontend/build/index.html'));
   });
